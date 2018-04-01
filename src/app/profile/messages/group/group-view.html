@@ -1,0 +1,41 @@
+
+<div class="inner_top">
+    <header-prioriti></header-prioriti>
+</div>
+
+<div class="inner_content">
+    <div class="container">
+        <div class="inner_content--wrap">
+            <div class="chat_block">
+                <div class="chat_block--wrapper">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4 col-md-3">
+                            <div class="chat_block--ulist">
+                                <div class="chat_block--ulist--wrap">
+                                    <div *ngFor="let one of groups" class="chat_block--ulist--item"
+                                         (click)="handleGroup();one.status=0"
+                                         [ngClass]="{'unread':one.status}"
+                                         routerLink="{{one.id}}" routerLinkActive="current">
+                                        <i class="material-icons text-success" [hidden]="!one.status">local_post_office</i>
+                                        <div class="chat_block--ulist--user">{{one.user}}</div>
+                                        <div class="chat_block--ulist--date">{{one.date}}</div>
+                                        <div class="chat_block--ulist--msg">{{one.message}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-8 col-md-9">
+
+
+                            <router-outlet></router-outlet>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

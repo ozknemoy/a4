@@ -9,8 +9,9 @@ import * as express from 'express';
 import { platformServer, renderModuleFactory } from '@angular/platform-server';
 import { ServerAppModuleNgFactory } from './ngfactory/app/server-app.module.ngfactory';
 import { ngExpressEngine } from './modules/ng-express-engine/express-engine';
-import { ROUTES } from './routes';
+//import { ROUTES } from './routes';
 //import { App } from './api/app';
+import {ROUTES as FRONT_ROUTES} from "./app/app.module";
 import { enableProdMode } from '@angular/core';
 enableProdMode();
 const app = express();
@@ -27,7 +28,7 @@ app.set('view engine', 'html');
 app.set('views', 'src');
 
 app.use('/', express.static('dist', { index: false }));
-
+const ROUTES = FRONT_ROUTES.map(route=> '/' + route.path);
 ROUTES.forEach(route => {
   app.get(route, (req, res) => {
     console.time(`render view : ${req.originalUrl}`);

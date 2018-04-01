@@ -1,79 +1,63 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { httpService } from '../../modules/transfer-http/transfer-http';
+import { Component, OnInit, ViewChild, Inject,ViewContainerRef } from '@angular/core';
+import { HttpService } from '../../modules/transfer-http/transfer-http';
 import { Observable } from 'rxjs/Observable';
-/**/
+import {ReCaptchaComponent} from "angular2-recaptcha";
+import {ToastsManager} from "ng2-toastr";
+import {ActivatedRoute} from "@angular/router";
+import {LoginModalComponent} from "../../modals/login-modal/login-modal";
+import {LocalStorage} from "../../services/localStorage.service";
+import {AutoUnsubscribe} from "../../services/@AutoUnsubscribe.decorator";
+import {SharedService} from "../../services/shared.service";
+
+//declare var WOW: any;
+
+
 @Component({
     selector: 'home-view',
-    template: `
-
-    <div *ngIf="qs && isBrowser; else notQS">
-    <table>
-        <tr>
-            <th>но</th>
-            <th>автор</th>
-            <th>заголовок</th>
-            <th>дата создания</th>
-            <th>с ответом</th>
-        </tr>
-        <tr *ngFor="let q of qs;let i = index"
-            routerLink="question/{{q.question_id}}"
-            class="link">
-            <td>{{i}}</td>
-            <td [innerHTML]="q.owner.display_name"></td>
-            <td [innerHTML]="q.title"></td>
-            <td>{{1000*q.creation_date | date:'dd-MM-yyyy'}}</td>
-            <td>{{q.is_answered ? 'да':'нет'}}</td>
-        </tr>
-	</table>
-	<span
-	        infinite-scroll
-		    [infiniteScrollDistance]="1.5"
-		    [infiniteScrollThrottle]="300"
-		    (scrolled)="load()">
-	</span>
-    </div>
-
-	<ng-template #notQS>Загрузка...</ng-template>
-
-	`,
-    styles: [
-        `
-        table{width:100%}
-        .link{
-            cursor: pointer;
-
-        }
-        .link:hover{
-            background-color: grey;
-
-        }
-        `
-    ]
+    templateUrl: './home-view.html'
 })
+@AutoUnsubscribe()
 export class HomeView implements OnInit {
 
-    pageNum = 1;
-    qs;
-    isBrowser: boolean;
-    constructor(private httpService:httpService,@Inject('isBrowser') public _isBrowser) {
-        this.isBrowser = _isBrowser();
-    }
+
+    public pending = false;
+    public ref:string;
+    public isAuth: boolean;
+    public categories = [];
+    categories$;isLogIn$;_isLogIn$;
+
+    constructor(public httpService:HttpService,
+                @Inject('isBrowser') public isBrowser,
+                @Inject('DOMEN') public DOMEN,
+                private sharedService: SharedService) {}
 
     ngOnInit() {
         if(this.isBrowser) {
-            this.httpService._get(`2.2/questions?page=${this.pageNum}&pagesize=50&order=desc&sort=activity&site=stackoverflow`)
-                .subscribe(d => {
-                    this.qs = d.items
-                });
+            //this._isLogIn$ = this.sharedService.listener['isLogIn']/*.map(v => v)*/;
+            //this._isLogIn$ = Observable.interval(1000)/*.map(interval => interval)*/;
+
+            this.isLogIn$ = this.sharedService.listener['isLogIn']
+                .subscribe((d:boolean)=>this.isAuth = d)
+        } else {
+            this.isAuth = this.httpService.isAuth();
         }
+
+        this.categories$ = this.httpService.get('categories/main?id=2&size=6').subscribe(d=>
+            this.categories = d.categories
+        );
+        /*const timer2$ = Observable.interval(2000)
+            .takeUntil(this.componentDestroy())
+            .subscribe(val => console.log(val))*/
+
     }
 
-    load() {
-        this.pageNum++;
-        this.httpService._get(`2.2/questions?page=${this.pageNum}&pagesize=50&order=desc&sort=activity&site=stackoverflow`)
-            .subscribe(d => {
-                this.qs = this.qs.concat(d.items)
-            });
+    ngAfterViewInit() {
+        /*if(this.isBrowser) {
+            if(!location.host.includes('localhost')) new WOW().init();
+        }*/
+
     }
+
+
 
 }

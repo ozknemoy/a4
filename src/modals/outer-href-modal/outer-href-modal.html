@@ -1,0 +1,15 @@
+
+<div class="modal-body">
+
+    <p>При переходе в магазин внешнего поставщика вы не будете получать бонусов, пока не авторизуетесь на площадке! Перейти по ссылке? </p>
+
+</div>
+<div class="modal-footer text-center">
+    <!--<button class="btn btn-danger"
+            (click)="yes()">Да</button>-->
+    <a class="btn btn-danger" [attr.href]="ref" target="_blank">Да</a>
+    <!--<button class="btn btn-success"
+            (click)="hide()">Нет</button>-->
+    <button class="btn btn-success" loginModalButton
+            (click)="hide()">Авторизоваться</button>
+</div>

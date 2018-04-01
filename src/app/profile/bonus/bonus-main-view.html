@@ -1,0 +1,64 @@
+
+<div class="row">
+    <div class="col-xs-12 col-sm-3">
+
+
+        <h4 class="text-center">Ваш личный товарооборот</h4>
+        <h5 class="text-center text-primary">
+            <b>{{data.points}}</b> <span class="description"><small>баллов за <br>{{temp.period}}</small></span>
+        </h5>
+        <h4 class="text-center">
+            Ваш статус<br>
+            <label class="label" [ngClass]="{
+                'label-danger':data.status.id===0,
+                'label-success':data.status.id===1,
+                'label-info':data.status.id===2,
+                'label-warning':data.status.id===3}"> {{data.status.name}}</label>
+        </h4>
+        <div class="alert alert-info text-center" *ngIf="data.status.id<3">
+            <i class="material-icons">info_outline</i>
+            <br>
+            <small>Для получения статуса
+                <span class="label" [ngClass]="{
+                    'label-success':data.status.id===0,
+                    'label-info':data.status.id===1,
+                    'label-warning':data.status.id===2}">{{statuses[1 + data.status.id].name}}</span>
+                необходимо набрать еще</small> <b>{{data.need_bonus}}</b> <small>баллов за оставшиеся</small> <b>{{rest}}</b> <small>дней</small>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-9">
+        <div class="card card-signup">
+            <div class="content table-hover">
+                <time-filter (callback)="filterCallback($event)"></time-filter>
+
+
+                <div class="table-full-width">
+                    <table class="table table-res">
+                        <thead>
+                        <tr>
+                            <th>Дата-время</th>
+                            <th>Назначение платежа</th>
+                            <th>Название поставщика</th>
+                            <th>Сумма покупки</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let row of data.items | paginate: { itemsPerPage: 5, currentPage: currentPage}">
+                            <td>{{row.created_at|date: 'dd-MM-yyyy HH:mm'}}</td>
+                            <td>{{row.comment}}</td>
+                            <td>{{row.shop_name}}</td>
+                            <td>{{row.amount}} <i class="fa fa-rub text-success"></i></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <pagination-controls (pageChange)="currentPage=$event"
+                                     maxSize="9"
+                                     directionLinks="false"
+                                     autoHide="true"
+                                     class="pagination pagination-success"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

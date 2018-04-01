@@ -1,0 +1,48 @@
+
+<div class="row">
+    <form  #userForm="ngForm">
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Имя*</label>
+            <input type="text" class="form-control" name="first_name" required [(ngModel)]="user.first_name">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Фамилия*</label>
+            <input type="text" class="form-control" name="last_name" required [(ngModel)]="user.last_name">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Отчество</label>
+            <input type="text" class="form-control" name="middle_name" [(ngModel)]="user.middle_name">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Номер телефона*</label><!--(_ngModelChange)="user.phone=$event"-->
+            <input type="text" class="form-control"
+
+                   placeholder="7 123 456 7890"
+                   minlength="17"
+                   mask='+7-(000)-000-0000' name="phone" [(ngModel)]="user.phone">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-8">
+        <div class="form-group">
+            <label>Смена пароля:</label>
+            <br>
+            <button class="btn btn-success" (click)="restorePassword()">Выслать новый пароль</button>
+            <span class="description">На ваш e-mail будет выслан новый пароль</span>
+        </div>
+
+    </div>
+</form>
+</div>
+
+<hr>
+
+<div class="form-group text-center">
+    <button class="btn btn-success" [disabled]="userForm.invalid || pend" (click)="save()">Сохранить</button>
+</div>

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Http, HttpModule } from '@angular/http';
-import { httpService} from './transfer-http';
+//import { Http, HttpModule } from '@angular/http';
+import { HttpService} from './transfer-http';
 
 @NgModule({
   providers: [
-      httpService
+      HttpService
   ]
 })
 export class TransferHttpModule {}

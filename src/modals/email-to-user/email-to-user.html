@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-label="Close"
+        (click)="close()"><span aria-hidden="true">×</span>
+    </button>
+    <h4 class="modal-title">Связаться с компанией</h4>
+</div>
+<div class="modal-body">
+    <form #formM="ngForm">
+        <small>Выберите тему обращения</small>
+        <select class="year form-control" [(ngModel)]="form.email" name="email" required>
+            <option [value]="e.email" *ngFor="let e of emailList">
+                {{e.thema}}
+            </option>
+        </select>
+        <br>
+
+        <small>Введите сообщение</small>
+        <div class="form-group is-empty">
+            <textarea [(ngModel)]="form.message" name="message" rows="4"
+                      pattern="(.|\n)[^<>]{1,50000}" required class="form-control"></textarea>
+            <span class="material-input"></span>
+            <small>Запрещены символы < и ></small>
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer text-center">
+    <div class="form-group">
+        <button type="button" [disabled]="formM.invalid" class="btn btn-success" (click)="send()">
+            Отправить<span class="ripple-container"></span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card card-signup">
+            <div class="content table-hover table-responsive">
+                <time-filter (callback)="filterCallback($event)"></time-filter>
+
+
+                <div class="header-table header-primary">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                            Остаток: {{table.balance}} у.е.
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            Поступило: {{table.received}} у.е.
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            Израсходовано: {{table.spent}} у.е.
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Дата-время</th>
+                            <th>Название платежа</th>
+                            <th>Название контрагента</th>
+                            <th>Сумма</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of table.items">
+                            <td>{{row.date}}</td>
+                            <td>{{row.name}}</td>
+                            <td>{{row.partner}}</td>
+                            <td>
+                                <span [ngClass]="row.sum>0?'text-success':'text-danger'">
+                                    <!--{{row.status===0?'+':'-'}}-->{{row.sum}} у.е
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div bsModal #moneyModal="bs-modal" [config]="{'backdrop':false}" class="modal fade" tabindex="-1" role="dialog">
+    <!--волшебный контейнер-->
+    <div class="modal-holder modal-backdrop" (click)="moneyModal.hide()"></div>
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="moneyModal.hide()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Вывод средств</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input ozkNumber type="text" [(ngModel)]="money" class="form-control text-center">
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="form-group">
+                    <button type="button" class="btn btn-success"
+                            (click)="getMoney()"
+                            [disabled]="!money">Вывод</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

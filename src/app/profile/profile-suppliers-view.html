@@ -1,0 +1,11 @@
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let shop of shops">
+        <a href class="card" (click)="checkBackend(shop)"><!--[outerHref]="shop.url"-->
+            <div class="card-image card-image-margin">
+                <img src="{{DOMEN + shop.image}}" alt="сломавшееся изображение">
+            </div>
+        </a>
+    </div>
+</div>
+

@@ -1,0 +1,42 @@
+
+<div class="chat_block--wrap">
+    <div class="chat_dialog">
+        <div class="chat_dialog--header visible-xs">
+            <button routerLink="/messages" (click)="deleteClass()"
+                    class="btn btn-xs btn-just-icon btn-info btn-message-back">
+                <i class="material-icons">chevron_left</i>
+            </button>
+            <div class="chat_dialog--header--user">Иван Иванов</div>
+        </div>
+
+        <div class="chat_dialog--content" id="chat_scroll">
+
+            <!--<div class="chat_dialog&#45;&#45;date"><div class="chat_dialog&#45;&#45;date&#45;&#45;content">12 декабря 2016</div></div>
+-->
+            <div  *ngFor="let one of messages" [ngClass]="one.my?'outgoing':'incoming'" class="chat_dialog--item">
+                <div class="chat_dialog--post">
+                    <div class="chat_dialog--text">{{one.message}}</div>
+                    <div class="chat_dialog--time">{{one.created_at}}</div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="chat_dialog--input">
+        <div class="input-group">
+            <div class="form-group is-empty">
+                <textarea class="form-control"
+                          (keyup.enter)="send()"
+                          [(ngModel)]="_message" placeholder="Введите текст сообщения..."></textarea>
+                <span class="material-input"></span>
+            </div>
+            <span class="input-group-btn">
+                <button class="btn btn-success" (click)="send()">
+                    <i class="material-icons">send</i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+</div>

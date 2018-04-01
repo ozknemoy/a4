@@ -1,0 +1,126 @@
+
+<div class="inner_top">
+    <header-prioriti></header-prioriti>
+</div>
+
+<div class="inner_content">
+    <div class="container">
+        <!-- navigation -->
+        <ul class="navbar-inner">
+            <li routerLinkActive="active">
+                <a [routerLink]="['/profile/suppliers']">
+                    <i class="material-icons">shopping_basket</i>
+                    Поставщики
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="['/profile/main/common']">
+                    <i class="material-icons">face</i>
+                    Профиль
+                </a>
+                <div style="display:none">
+                    <a routerLink="/profile/main/passport"></a>
+                    <a routerLink="/profile/main/bank"></a>
+                </div>
+            </li>
+            <li routerLinkActive="active">
+                <a routerLink="/profile/bonus/main">
+                    <i class="material-icons">redeem</i>
+                    Бонусная программа
+                </a>
+                <div style="display:none">
+                    <a routerLink="/profile/bonus/refs"></a>
+                    <a routerLink="/profile/bonus/earning"></a>
+                </div>
+
+            </li>
+            <li routerLinkActive="active" class="pointer-none">
+                <a routerLink="/profile/biz/education">
+                    <i class="material-icons">credit_card</i>
+                   Бизнес(Скоро)
+                </a>
+                <div style="display:none">
+                    <a routerLink="/profile/biz/docs"></a>
+                    <a routerLink="/profile/biz/actions"></a>
+                </div>
+            </li>
+            <!--<li routerLinkActive="active">
+                <a [routerLink]="['/profile/pref']">
+                    <i class="material-icons">settings</i>
+                    Настройки
+                </a>
+            </li>-->
+        </ul>
+        <div class="inner_content--wrap">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="author no-image">
+                        <h4 class="title">
+                            <span class="pull-right">
+                                <a class="btn btn-info btn-sm pull-right" href="http://prioriticlub.ru/filess/revenue.pdf" target="_blank" download>
+                                    План маркетинга
+                                </a>
+                                <!--<br><br>
+                                <a class="btn btn-info btn-sm pull-right" href="http://prioriticlub.ru/filess/vizitka.rar" target="_blank" download>
+                                    Визитка
+                                </a>-->
+                                <br><br>
+                                <a class="btn btn-info btn-sm pull-right" email-to-user>
+                                    Связаться с компанией
+                                </a>
+                            </span>
+
+                            {{auth.data.first_name + " " + auth.data.last_name + " "}}
+                            <label class="label"
+                                   [ngClass]="{
+                                   'label-danger':user.bonus_status_id===0,
+                                   'label-success':user.bonus_status_id===1,
+                                   'label-info':user.bonus_status_id===2,
+                                   'label-warning':user.bonus_status_id===3}">
+                                {{user.bonus_status_name}}
+                            </label>
+                            <br>
+                            <small>Ваш ID {{user.ref}}</small>
+                        </h4>
+                    </div>
+                    <p class="description">
+                        <i class="material-icons">payment</i>&nbsp;
+                        {{user.sumRu | thousand}}&nbsp;<i class="fa fa-rub"></i>&nbsp;
+                        {{user.sum | thousand}}  у.е.
+                    </p>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <h5 class="dib">Реферальная ссылка</h5>
+                    <barcode-button code="{{user.ref}}" class="pull-right pt10"></barcode-button>
+                    <div class="input-group">
+                        <!--<input type="text" class="form-control" readonly
+                               [ngModel]="temp.ref">-->
+                        <div class="ref-border">{{temp.ref}}</div>
+
+                        <span class="input-group-btn">
+                            <button class="btn btn-success btn-sm" (click)="copy(temp.ref)"
+                                    tooltip="Скопированно" triggers="click">Скопировать</button>
+                        </span>
+                    </div>
+                    <br>
+                    <p *ngIf="user.id">
+                        Ваш Наставник:
+							<span  placement="top" title="" tooltip="связаться">
+								<button user-info-modal class="btn btn-primary btn-simple"
+                                        [user]="{phone: user.parent_phone,name:user.parent,email:user.parent_email}">
+                                    <i class="material-icons">email</i>
+                                    {{user.parent}}
+                                    <span class="ripple-container"></span></button>
+							</span>
+                        <span class="description" *ngIf="user.parent_ref">({{user.parent_ref}})</span>
+                    </p>
+                </div>
+            </div>
+
+            <router-outlet></router-outlet>
+
+
+        </div>
+    </div>
+</div>
+

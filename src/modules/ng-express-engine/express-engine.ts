@@ -31,7 +31,6 @@ export function ngExpressEngine(setupOptions: NgSetupOptions) {
       if (!moduleFactory) {
         throw new Error('You must pass in a NgModule or NgModuleFactory to be bootstrapped');
       }
-
       const extraProviders = setupOptions.providers.concat(
         getReqResProviders(options.req, options.res),
         [
@@ -41,7 +40,8 @@ export function ngExpressEngine(setupOptions: NgSetupOptions) {
               document: getDocument(filePath),
               url: options.req.originalUrl
             }
-          }
+          },
+            {provide: 'isNode', useValue: true}
         ]);
 
       const moduleRefPromise = setupOptions.aot ?
@@ -57,7 +57,7 @@ export function ngExpressEngine(setupOptions: NgSetupOptions) {
     }
 	}
 }
-
+// провайдеры только для нода
 function getReqResProviders(req: Request, res: Response): Provider[] {
   const providers: Provider[] = [
     {
@@ -84,7 +84,7 @@ function getDocument(filePath: string): string {
 /**
  * Handle the request with a given NgModuleRef
  */
-function handleModuleRef(moduleRef: NgModuleRef<{}>, callback: Send) {
+function handleModuleRef(moduleRef: NgModuleRef<{}>, callback/*: Send*/) {
   const state = moduleRef.injector.get(PlatformState);
   const appRef = moduleRef.injector.get(ApplicationRef);
 
@@ -94,8 +94,9 @@ function handleModuleRef(moduleRef: NgModuleRef<{}>, callback: Send) {
     .subscribe((stable) => {
       const bootstrap = moduleRef.instance['ngOnBootstrap'];
       bootstrap && bootstrap();
+        //console.log("state.render",state.renderToString());
 
-      callback(null, state.renderToString());
+      callback(null, state.renderToString());// это пререндереный html
       moduleRef.destroy();
     });
 }

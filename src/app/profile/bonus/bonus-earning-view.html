@@ -1,0 +1,137 @@
+
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <time-filter (callback)="filterCallback($event)"></time-filter>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+
+            </div>
+        </div>
+
+        <h4>
+            Возвратная скидка
+            <b class="text-primary">{{returnedMoney}}</b>
+            <small><span class="description">у.е.</span></small>
+        </h4>
+
+        <div class="alert alert-info" *ngIf="data.need_bonus>0">
+            <div class="alert-icon">
+                <i class="material-icons">info_outline</i>
+            </div>
+
+            <small>
+                Возвратная скидка недоступна т.к. ваш статус
+                <span class="label label-danger">Не активен</span>.
+                Необходимо набрать еще</small>
+            <b>{{data.need_bonus}}</b>
+            <small>баллов за оставшиеся</small>
+            <b>{{rest}}</b> <small>дней</small>
+        </div>
+
+        <div class="card card-signup">
+            <div class="content table-hover">
+                <h4>
+                    Бонусное вознаграждение
+                    <b class="text-primary">{{tableOneAvailableSum}}</b>
+                    <small>
+                        <span class="description">у.е.</span>
+                    </small>
+                    <span class="pull-right">
+                        1 у.е. = <span class="text-primary ">
+                        {{data.ye}} <i class="fa fa-rub"></i></span>
+                    </span>
+                </h4>
+                <div class="table-full-width">
+                    <table class="table table-hover table-res">
+                        <thead>
+                        <tr>
+                            <th>Уровень</th>
+                            <th>Начислено вознаграждение </th>
+                            <th>Статус</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of table; let i = index">
+                                <td data-text="Уровень">{{i+1}} уровень</td>
+                                <td data-text="Начислено вознаграждение">{{row.reward}}</td>
+                                <td *ngIf="row.status!==0; else statusOK" data-text="Статус" class="alert alert-info">
+                                    <span>
+                                        Недоступно, т.к. на уровне 1 требуется активных рефералов {{row.status}}.
+                                    </span>
+                                </td>
+
+                                <ng-template #statusOK>
+                                    <td *ngIf="data.items['0'].status.id===0; else none">
+                                        <span>
+                                            Недоступно, т.к. ваш статус <span class="label label-danger">Не активен</span>
+                                        </span>
+                                    </td>
+
+                                    <ng-template #none>
+                                        <td data-text="Статус" class="text-success">
+                                            Доступно
+                                        </td>
+                                    </ng-template>
+
+                                </ng-template>
+                            </tr>
+                        </tbody>
+
+                        <tfoot>
+                            <tr class="header-table header-primary">
+                                <td>Итого:</td>
+                                <td><b>{{tableOneAllSum}}</b> у.е.</td>
+                                <td>Доступно: <b>{{tableOneAvailableSum}}</b> у.е.</td>
+                            </tr>
+                        </tfoot>
+                    </table><!--<pre>{{table|json}}</pre>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-signup">
+            <div class="content table-hover">
+                <h4>
+                    Ваш заработок
+                    <b class="text-primary">{{tableOneAvailableSum + returnedMoneyAvailable}}</b>
+                    <small><span class="description">у.е.</span></small>
+                </h4>
+                <div class="table-full-width">
+                    <table class="table table-hover table-res">
+                        <thead>
+                        <tr>
+                            <th>Ваш доход</th>
+                            <th>Начислено</th>
+                            <th>Доступно к выплате</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td data-text="Ваш доход">Возвратная скидка</td>
+                            <td data-text="Начислено">{{returnedMoney}} у.е.</td>
+                            <td data-text="Доступно к выплате">{{returnedMoneyAvailable}} у.е.</td>
+                        </tr>
+                        <tr>
+                            <td data-text="Ваш доход">Бонусное вознаграждение</td>
+                            <td data-text="Начислено">{{tableOneAllSum}} у.е.</td>
+                            <td data-text="Доступно к выплате">{{tableOneAvailableSum}} у.е.</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr class="header-table header-primary">
+                            <td>Итого:</td>
+                            <!--возвратная скидка + итого бонусного вознаграждения-->
+                            <td><b>{{tableOneAllSum + returnedMoney}}</b> у.е.</td>
+                            <!--возвратная скидка + итого доступного бонусного вознаграждения-->
+                            <td>Доступно к выплате: <b>{{tableOneAvailableSum + returnedMoneyAvailable}}</b> у.е.</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

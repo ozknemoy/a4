@@ -3,6 +3,9 @@
   "angularCompilerOptions": {
     "entryModule": "./app/browser-app.module#BrowserAppModule"
   },
+  "compilerOptions": {
+    "allowJs": true
+  },
   "exclude": [
     "./main.server.aot.ts"
   ]

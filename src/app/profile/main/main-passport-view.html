@@ -1,0 +1,128 @@
+
+<form  #userForm="ngForm">
+<div class="row">
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Серия - номер:</label>
+            <input type="text" class="form-control passport_number" placeholder="0000 000000"
+                   mask='0000000000' name="passport_number" [(ngModel)]="uPassport.number">
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-8">
+        <div class="form-group">
+            <label>Кем выдан:</label>
+            <input type="text" class="form-control" [(ngModel)]="uPassport.who_issued" name="passport_who_give">
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+        <label>Когда выдан:</label>
+        <my-date-picker name="passport_when_give" locale="ru"
+                        [options]="dateOptions"
+                        [(ngModel)]="temp.when_issued"></my-date-picker>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Код подразделения:</label>
+            <input type="text" class="form-control" placeholder="123 123"
+                   mask='000000' name="passport_code" [(ngModel)]="uPassport.unit_code">
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+        <label>Дата рождения:</label>
+        <div class="form-group">
+            <my-date-picker name="birthday" locale="ru"
+                                [options]="dateOptions"
+                                [(ngModel)]="temp.date_birth"></my-date-picker>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Место рождения:</label>
+            <input type="text" class="form-control"
+                   name="passport_place_birth" [(ngModel)]="uPassport.place_birth">
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-8">
+        <div class="form-group">
+            <label>Место регистрации:</label>
+            <input type="text" class="form-control"
+                   name="passport_place_reg" [(ngModel)]="uPassport.place_registration">
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Скан первой страницы паспорта:</label>
+            <div class="file-group">
+                <file-uploader class="file-group" [size]="2048000"
+                               filename="passport_one"
+                               url="profiles/document/files"
+                               (callback)="temp.passport_one.url=$event"
+                               accept=".jpeg,.jpg,.png,.pdf"></file-uploader>
+                <div class="input-group">
+                    <input type="text" readonly class="form-control"
+                           [placeholder]="temp.passport_one.url? temp.hasFile:temp.noFile">
+                    <span class="input-group-btn input-group-sm">
+                        <button type="button" class="btn btn-primary">
+                            <i class="material-icons">attach_file</i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Скан страницы паспорта с пропиской:</label>
+            <div class="file-group">
+                <file-uploader class="file-group" [size]="2048000" filename="passport_two" url="profiles/document/files"
+                               (callback)="temp.passport_two.url=$event" accept=".jpeg,.jpg,.png,.pdf"></file-uploader>
+                <div class="input-group">
+                    <input type="text" readonly class="form-control"
+                           [placeholder]="temp.passport_two.url?temp.hasFile:temp.noFile">
+                    <span class="input-group-btn input-group-sm">
+                        <button type="button" class="btn btn-primary">
+                            <i class="material-icons">attach_file</i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Скан СНИЛС:</label>
+            <div class="file-group">
+                <file-uploader class="file-group" [size]="2048000" filename="snils" url="profiles/document/files"
+                               (callback)="temp.snils.url=$event" accept=".jpeg,.jpg,.png,.pdf"></file-uploader>
+                <div class="input-group">
+                    <input type="text" readonly class="form-control"
+                           [placeholder]="temp.snils.url?temp.hasFile:temp.noFile">
+                        <span class="input-group-btn input-group-sm">
+                            <button type="button" class="btn btn-primary">
+                                <i class="material-icons">attach_file</i>
+                            </button>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</form>
+<hr>
+
+<div class="form-group text-center">
+    <button class="btn btn-success" [disabled]="userForm.invalid || pend" (click)="save()">Сохранить паспортные данные</button>
+</div>
+
+<main-bank-view></main-bank-view>

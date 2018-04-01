@@ -1,0 +1,134 @@
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <time-filter (callback)="filterCallback($event)"></time-filter>
+                <h4>
+                    Товарооборот вашей команды
+                    <b class="text-primary">{{userGoodsTurnover}}</b>
+                    <small>
+                        <span class="description">баллов</span>
+                    </small>
+                </h4>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-lg-push-2 col-lg-4">
+                <div class="pt10">
+                    <div class="square active-user-darken"></div>
+                    <div class="dib vertical-top">10 и более активных рефералов 1-го уровня</div>
+                </div>
+                <div>
+                    <div class="square semi-active-user-darken"></div>
+                    <div class="dib vertical-top">5-9 активных рефералов 1-го уровня</div>
+                </div>
+                <!--<div>
+                    <div class="square not-active-user-darken"></div>
+                    <div class="dib vertical-top">Кандидат на удаление из клуба</div>
+                </div>-->
+            </div>
+        </div>
+        <br>
+
+        <div class="card card-signup">
+            <div class="content table-hover">
+                <div class="dib w150 form-group">
+                    <label>Номер уровня</label>
+                    <select class="form-control" [(ngModel)]="filter.nl">
+                        <option [value]="l.id" *ngFor="let l of levels; let $index = index">
+                            {{l.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="dib w100 form-group">
+                    <label>ЛО от</label>
+                    <input type="text" class="form-control" [(ngModel)]="filterTwo.from">
+                </div>
+                <div class="dib w100 form-group">
+                    <label>ЛО до</label>
+                    <input type="text" class="form-control" [(ngModel)]="filterTwo.to">
+                </div>
+                <div class="dib w150 form-group">
+                    <label>ID Пользователя</label>
+                    <input type="text" class="form-control" [(ngModel)]="filter.id">
+                </div>
+                <div class="dib w150 form-group">
+                    <label>ID Наставника</label>
+                    <input type="text" class="form-control" [(ngModel)]="filter.parent_id">
+                </div>
+                <div class="dib w150 form-group">
+                    <label>Фамилия</label>
+                    <input type="text" class="form-control" [(ngModel)]="filter.last_name">
+                </div>
+
+
+                <div class="table-full-width">
+                    <table class="table table-hover table-res">
+                        <thead>
+                            <tr>
+                                <th>№ п/п</th>
+                                <th>Уровень</th>
+                                <th>ФИО</th>
+                                <th>ID пользователя</th>
+                                <th>ID Наставника</th>
+                                <th>ЛО</th>
+                                <th>ГО</th>
+                                <th>Активных в 1 уровне</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of refsTree
+                                        | filter: filter
+                                        | range: 'my_bonus' : filterTwo.from : filterTwo.to
+                                        | paginate: { itemsPerPage: 15, currentPage: currentPage2, id: 'two'};
+                                         let $index = index"
+                                        [ngClass]="{'active-user': row.active_on_1>9,
+                                                    'semi-active-user': row.active_on_1>4 && row.active_on_1<10
+                                                    }"><!--'not-active-user': row.active_on_1===0-->
+                                <td data-text="№">{{row._index}}</td>
+                                <td data-text="Уровень">{{row.nl}}</td>
+                                <td data-text="ФИО" class="w20p align-icon">
+                                    <span user-info-modal class="primary-color cursor-pointer"
+                                          *ngIf="row.nl === 1"
+                                          placement="top" tooltip="связаться"
+                                          [user]="{email:row.email , phone: row.phone,
+                                             name:row.last_name + ' ' + row.first_name + ' ' + row.middle_name}">
+                                        <i class="material-icons">email</i>
+                                    </span>
+                                    <span>{{row._name}}</span>
+
+                                </td>
+                                <td data-text="ID пользователя">{{row.id}}</td>
+                                <td data-text="ID Наставника">{{row.parent_id}}</td>
+                                <td data-text="ЛО" class="w10p">{{row.my_bonus}}</td>
+                                <td data-text="ГО" class="w10p">{{row.ref_bonus}}</td>
+                                <td data-text="Активных в 1 уровне">{{row.active_on_1}}</td>
+                                <td data-text="Статус">
+                                    <label class="label" [ngClass]="{
+                                                'label-danger':row._status===0,
+                                                'label-success':row._status===1,
+                                                'label-info':row._status===2,
+                                                'label-warning':row._status===3}">{{row.status}}</label>
+                                </td>
+
+                                <!--<td data-text="Уровень">{{$index + 2}} уровень</td>
+                                <td data-text="Количество рефералов">{{row.count}}</td>
+                                <td data-text="Активных рефералов">{{row.action}}</td>
+                                <td data-text="Товарооборот уровня">{{row.bonus}}</td>-->
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <pagination-controls (pageChange)="currentPage2=$event"
+                                         id="two"
+                                         maxSize="9"
+                                         directionLinks="false"
+                                         autoHide="true"
+                                         class="pagination pagination-success"></pagination-controls>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

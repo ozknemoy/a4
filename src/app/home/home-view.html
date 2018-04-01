@@ -1,0 +1,124 @@
+<div class="wlc">
+
+    <header-prioriti></header-prioriti>
+
+    <div class="header-wrap text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 class="wow fadeInDown" data-wow-delay=".2s">
+                        Теперь можно извлекать выгоду из привычных вам вещей
+                    </h1>
+
+                    <p class="header_desc wow fadeInDown" data-wow-delay=".6s">
+                        Самый простой способ зарабатывать больше, не меняя своего образа жизни.
+                    </p>
+
+                    <div class="separator separator-white">♦</div>
+                    <button class="btn btn-success btn-lg btn-down wow fadeInDown"
+                            routerLink="/registration"
+                            data-wow-delay=".8s">Попробуйте<!--scrollTo="#slide2"-->
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wlc-wrap">
+    <!-- icons -->
+    <div class="icons">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-xss-6 col-sm-3 icons--item wow fadeInDown" data-wow-delay=".4s">
+
+                    <i class="material-icons">grade</i>
+
+                    <div class="icons--heading">Вступайте в клуб</div>
+                    <p>Зарегистрируйтесь и станьте членом клуба</p>
+                </div>
+                <div class="col-xs-12 col-xss-6 col-sm-3 icons--item wow fadeInDown" data-wow-delay=".6s">
+
+                    <i class="material-icons">shopping_cart</i>
+
+                    <div class="icons--heading">Покупайте</div>
+                    <p>Тысячи необходимых вам товаров и услуг на специальных условиях</p>
+                </div>
+                <div class="col-xs-12 col-xss-6 col-sm-3 icons--item wow fadeInDown" data-wow-delay=".8s">
+
+                    <i class="material-icons">record_voice_over</i>
+
+                    <div class="icons--heading">Рекомендуйте</div>
+                    <p>Делитесь своим опытом использования Сервиса с друзьями</p>
+                </div>
+                <div class="col-xs-12 col-xss-6 col-sm-3 icons--item wow fadeInDown" data-wow-delay="1s">
+
+                    <i class="material-icons">monetization_on</i>
+
+                    <div class="icons--heading">Зарабатывайте</div>
+                    <p>Получайте деньги за все покупки ваших друзей</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- icons end -->
+
+    <div class="separator separator-black">♦</div>
+
+    <div id="slide2">
+        <div class="container">
+            <div class="text">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 wow fadeInDown" data-wow-delay=".3s">
+                        <p>
+                            PRIORITI - это закрытый потребительский клуб, предоставляющий своим членам возможность,
+                            покупая обычные для них товары и услуги повседневного спроса, необходимые им каждый день,
+                            зарабатывать на этом реальные деньги, получать подарки и специальные эксклюзивные
+                            предложения.
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 text-center wow fadeInDown" data-wow-delay=".6s">
+                        <div class="text--img">
+                            <img src="assets/img/card.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h3 class="text-center">Категории</h3>
+
+        <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let cat of categories">
+            <a href [outerHref]="cat.url" class="card">
+                <div class="card-image">
+                    <img src="{{DOMEN+cat.img}}" alt="">
+                    <div class="card-image-title">{{cat.name}}</div>
+                </div>
+            </a>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-info btn-lg btn-down"
+                    routerLink="/registration">Зарегистрироваться
+            </button>
+            <br><br>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

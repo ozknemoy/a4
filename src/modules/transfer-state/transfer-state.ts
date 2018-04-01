@@ -30,6 +30,9 @@ export class TransferState {
   initialize(obj: any): void {
     Object.keys(obj)
       .forEach(key => {
+          if(key==='node-errors') {
+              console.log("________node-errors", obj[key]);
+          }
         this.set(key, obj[key]);
       });
   }

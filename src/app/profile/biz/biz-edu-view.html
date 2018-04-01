@@ -1,0 +1,14 @@
+
+<div class="row">
+    <ng-container *ngFor="let video of videos;let i = index">
+        <div class="col-xs-12 col-md-4">
+            <div video-modal-button url="{{video.url}}" class="card">
+                <div class="card-image cursor-pointer">
+                    <img src="{{video._thumbUrl}}" alt="{{video.caption}}">
+                     <div class="content">{{video.caption}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="clear" *ngIf="(i+1)%3===0"></div>
+    </ng-container>
+</div>

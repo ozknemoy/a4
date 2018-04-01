@@ -1,0 +1,89 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "@angular2-mdl-ext/select@0.8.2",
+        "scope": "@angular2-mdl-ext",
+        "escapedName": "@angular2-mdl-ext%2fselect",
+        "name": "@angular2-mdl-ext/select",
+        "rawSpec": "0.8.2",
+        "spec": "0.8.2",
+        "type": "version"
+      },
+      "D:\\angular-2-_starter"
+    ]
+  ],
+  "_from": "@angular2-mdl-ext/select@0.8.2",
+  "_id": "@angular2-mdl-ext/select@0.8.2",
+  "_inCache": true,
+  "_location": "/@angular2-mdl-ext/select",
+  "_nodeVersion": "7.1.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/select-0.8.2.tgz_1485891596564_0.9727130420506"
+  },
+  "_npmUser": {
+    "name": "angular2-mdl-ext",
+    "email": "apps@mseemann.de"
+  },
+  "_npmVersion": "3.10.9",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "@angular2-mdl-ext/select@0.8.2",
+    "scope": "@angular2-mdl-ext",
+    "escapedName": "@angular2-mdl-ext%2fselect",
+    "name": "@angular2-mdl-ext/select",
+    "rawSpec": "0.8.2",
+    "spec": "0.8.2",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@angular2-mdl-ext/select/-/select-0.8.2.tgz",
+  "_shasum": "fcb57f57b51a21bce259613c1d0e84afc3ac0433",
+  "_shrinkwrap": null,
+  "_spec": "@angular2-mdl-ext/select@0.8.2",
+  "_where": "D:\\angular-2-_starter",
+  "bugs": {
+    "url": "https://github.com/mseemann/angular2-mdl-ext/issues"
+  },
+  "dependencies": {},
+  "description": "Angular 2 Material Design Lite - Select Component",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "fcb57f57b51a21bce259613c1d0e84afc3ac0433",
+    "tarball": "https://registry.npmjs.org/@angular2-mdl-ext/select/-/select-0.8.2.tgz"
+  },
+  "homepage": "https://github.com/mseemann/angular2-mdl-ext#readme",
+  "keywords": [
+    "angular2",
+    "material design lite",
+    "select"
+  ],
+  "license": "MIT",
+  "main": "./index.umd.js",
+  "maintainers": [
+    {
+      "name": "angular2-mdl-ext",
+      "email": "apps@mseemann.de"
+    }
+  ],
+  "module": "./index.js",
+  "name": "@angular2-mdl-ext/select",
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "angular2-mdl": "^2.0.0",
+    "@angular2-mdl-ext/popover": "*"
+  },
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mseemann/angular2-mdl-ext.git"
+  },
+  "scripts": {},
+  "typings": "./index.d.ts",
+  "version": "0.8.2"
+}

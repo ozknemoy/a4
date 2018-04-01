@@ -1,0 +1,33 @@
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+            <label>Название банка:</label>
+            <input type="text" class="form-control" [(ngModel)]="user.name" name="name">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+            <label>БИК:</label>
+            <input type="text" class="form-control" [(ngModel)]="user.bik" mask="000000000" name="bik">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+            <label>Корреспондентский счет:</label>
+            <input type="text" class="form-control" [(ngModel)]="user.corr" mask="00000000000000000000" name="corr">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+            <label>Расчетный счет:</label>
+            <input type="text" class="form-control" [(ngModel)]="user.account" mask="00000000000000000000" name="account">
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="form-group text-center">
+    <button class="btn btn-success" (click)="save()" [disabled]="pend">Сохранить банковские данные</button>
+</div>

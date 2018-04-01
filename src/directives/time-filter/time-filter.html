@@ -1,0 +1,28 @@
+
+<h4>Показаны результаты за</h4>
+<div>
+    <select class="month form-control" [(ngModel)]="month" (ngModelChange)="setDateRange()">
+        <option [value]="$index + 1" *ngFor="let m of months; let $index = index">
+            {{m}}
+        </option>
+    </select>
+    <select class="year form-control" [(ngModel)]="year" (ngModelChange)="setDateRange()">
+        <option [value]="y" *ngFor="let y of years">
+            {{y}}
+        </option>
+    </select>
+</div>
+
+    <!--<span class="btn-group">
+        <my-date-picker class="btn btn-success custom-date-picker"
+                        name="start" locale="ru"
+                        [options]="dateOptions"
+                        (dateChanged)="temp.start=$event;setDateRange()"
+                        [(ngModel)]="temp.start"></my-date-picker>
+        <button class="btn btn-success pointer-none" (click)="onToggleSelector()">
+             {{period}}
+            <span class="ripple-container"></span>
+        </button>
+    </span>-->
+
+

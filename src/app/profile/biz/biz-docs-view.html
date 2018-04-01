@@ -1,0 +1,13 @@
+
+<div class="row">
+    <ng-container *ngFor="let doc of docs;let i = index">
+        <div class="col-xs-12 col-md-4">
+            <div class="card">
+                <a [attr.href]="doc.url" target="_blank" class="card-image card-image-margin">
+                    <div>{{doc.caption}}</div>
+                </a>
+            </div>
+        </div>
+        <div class="clear" *ngIf="(i+1)%3===0"></div>
+    </ng-container>
+</div>

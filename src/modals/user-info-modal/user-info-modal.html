@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+        (click)="close()"><span aria-hidden="true">×</span>
+    </button>
+    <h4 class="modal-title">Связаться с пользователем</h4>
+</div>
+<div class="modal-body">
+    <div>{{user.name}}</div>
+    <div>+{{user.phone}}</div><!--?subject=Prioriticlub&body=Здравствуйте-->
+    <a [attr.href]="'mailto:' + user.email + '?subject=Prioriticlub'" target="_blank">
+        {{user.email}}
+    </a>
+</div>

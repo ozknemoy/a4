@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-label="Close"
+            (click)="close()"><span aria-hidden="true">×</span>
+    </button>
+    <h4 class="modal-title">Ваш {{type?'штрих-код':'QR-код'}}</h4>
+</div>
+
+<div class="text-center">
+    <bSwitch class="modal-footer"
+            [switch-off-text]="'сменить на штрих-код'"
+            [switch-on-text]="'сменить на QR-код'"
+            [switch-on-color]="'success'"
+            [switch-off-color]="'info'"
+            [switch-handle-width]="165"
+            [switch-animate]="true"
+            [(ngModel)]="type">
+        <!--[switch-handle-width]="handleWidth" [switch-size]="'large'"-->
+    </bSwitch>
+    <div [hidden]="!type">
+        <ngx-barcode [bc-value]="code"
+                     [bc-width]="2"
+                     [bc-format]="'CODE128'"
+                     [bc-element-type]="'img'"
+                     padding="150"
+                     [bc-display-value]="true"></ngx-barcode>
+        <!--скрываю оcновной компонент чтобы показать обычный img растянутый на весь экран-->
+        <!--<img id="dummi-img" width="100%" [src]="this.imgUrl">-->
+    </div>
+    <div [hidden]="type" class="modal-footer">
+        <ngx-qrcode [qrc-value]="code"></ngx-qrcode>
+    </div>
+</div>
+<div>
+</div>
+
+<div class="modal-footer text-center">
+    <div class="form-group">
+        <button class="btn btn-success" (click)="saveImg()">
+            Сохранить код<span class="ripple-container"></span>
+        </button>
+    </div>
+</div>

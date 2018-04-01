@@ -3,16 +3,58 @@
  */
 import {isBrowser as _isBrowser} from '../config/is-browser'
 import {Inject,Injectable} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Injectable()
 export class LocalStorage {
-    storageKeyPrefix:string = 'ngStorage-';
-    storageType:string = 'localstorage';
-    isBrowser:boolean;
-    constructor(@Inject('isBrowser') public _isBrowser:any) {
-        this.isBrowser = this._isBrowser();
-        console.log("isBrowser",this.isBrowser);
+    public hash: string;// для ноды
+    public auth = <any>{data:{}};
+    storageKeyPrefix:string = 'prioriti-';
+    public auth_keys = ['hash', /*'id',*/ 'first_name', 'last_name', 'middle_name'];
+    constructor(@Inject('isBrowser') public isBrowser,
+                public router: Router) {
 
+        this.initAuth();
+    }
+
+    setAuth(obj) {
+        this.setKeys(obj);
+        this.setAppAuth(obj);
+        this.setCookies(obj);
+    }
+
+    /*setNewName(obj) {
+        this.setKeys(obj);
+        this.setAppAuth(obj);
+        this.setCookies(obj);
+    }*/
+
+    setAppAuth(obj) {
+        Object.assign(this.auth,obj);
+        Object.assign(this.auth.data,obj);
+        console.log("setAppAuth",this.auth);
+
+    }
+
+    // при загрузке приложения инициализирую авторизацию из стоража/
+    // ноде это нужно чтобы с сервера пришел  хедер с логином или без него
+    initAuth() {
+        if(!this.get('hash') && this.isBrowser) return;
+        this.auth_keys.forEach(key=> {
+            this.auth[key] = this.get(key);
+            this.auth.data[key] = this.auth[key]
+        })
+    }
+
+    clearAuth() {
+        this.reset();
+        this.auth = {data:{}};//this.setAppAuth({});
+        this.deleteAuthCookies();
+        this.handleLogout();
+    }
+
+    handleLogout() {
+        this.router.navigate(['/'])
     }
 
     get(key) {
@@ -23,12 +65,23 @@ export class LocalStorage {
         }
     };
 
+    deleteAuthCookies() {
+        this.auth_keys.forEach(key=> {
+            this.deleteCookie(key)
+        })
+    }
+
     set(key, value) {
         if (this.isBrowser) {
             return window.localStorage.setItem(this.storageKeyPrefix + key, value)
         } else {
-            this[key] = value
+            this[key] = value;
+            this.auth[key] = value;
         }
+    };
+
+    removeItem(key) {
+        window.localStorage.removeItem(this.storageKeyPrefix + key)
     };
 
     setKeys(obj) {
@@ -84,6 +137,22 @@ export class LocalStorage {
         }
 
         document.cookie = updatedCookie;
+    }
+
+    setCookies(obj) {
+        for(let key in obj) {
+            this.setCookie(key,obj[key])
+        }
+    }
+
+    // пишу нодой куки в стораж
+    setCookiesToLS(obj) {
+        if(this.getCookie('hash',obj)) {
+            this.auth_keys.forEach(key=> {
+                this.auth[key] = this.getCookie(key,obj);
+                this.auth.data[key] = this.auth[key]
+            })
+        }
     }
 
     deleteCookie(name) {

@@ -3,6 +3,9 @@
   "angularCompilerOptions": {
     "entryModule": "./app/server-app.module#ServerAppModule"
   },
+  "compilerOptions": {
+    "allowJs": true
+  },
   "exclude": [
     "./main.server.aot.ts"
   ]

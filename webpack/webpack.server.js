@@ -1,5 +1,5 @@
 const { root } = require('./helpers');
-
+const fs = require('fs');
 const { AotPlugin } = require('@ngtools/webpack');
 
 /**
@@ -10,5 +10,7 @@ module.exports = {
   output: {
     filename: 'server.js'
   },
-  target: 'node'
+  target: 'node',
+  // когда падают ошибки типа Module not found: Error: Can't resolve 'tedious'
+  externals: ["pg-native", "sqlite3", "tedious", "pg-hstore"]
 };

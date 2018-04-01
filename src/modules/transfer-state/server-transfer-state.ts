@@ -21,16 +21,16 @@ export class ServerTransferState extends TransferState {
         data: {}
       });
 
-      const head = document.children[0].children[0];
+      //const head = document.children[0].children[0];// ozk not working with <!DOCTYPE html>
+        const head = document.children[1].children[0];// ozk after adding <!DOCTYPE html>
       if (head.name !== 'head') {
         throw new Error('Please have <head> as the first element in your document');
       }
-
       const script = renderer.createElement('script');
       renderer.setValue(script, `window['TRANSFER_STATE'] = ${transferStateString}`);
       renderer.appendChild(head, script);
     } catch (e) {
-      console.error(e);
+      console.error('________server-transfer-state',e);
     }
   }
 

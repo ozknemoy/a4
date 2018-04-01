@@ -1,0 +1,51 @@
+
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 cursor-pointer" routerLink="">
+                <!-- logo -->
+                <a><div class="logo wow fadeInDown"></div></a>
+                <!-- logo end -->
+            </div>
+            <div class="col-xs-12 col-sm-8 text-right header-nav" *ngIf="!auth.data.hash">
+                <div class="btn-group">
+                    <a routerLink="/registration" class="btn btn-primary btn-round">
+                        Зарегистрироваться&nbsp;<i class="material-icons">assignment_ind</i>
+                    </a>
+                    <button class="btn btn-success btn-round" loginModalButton>
+                        Войти<i class="material-icons">exit_to_app</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8 text-right header-nav" *ngIf="auth.data.hash">
+                <div class="btn-group">
+                    <button class="btn btn-info btn-round" routerLink="/profile/main/common">
+                        <!--Личный кабинет-->
+                        <!--Добро пожаловать,-->{{auth.data.first_name + " " + auth.data.last_name + " "}}
+                        <i class="material-icons">assignment_ind</i>
+                    </button>
+                    <!--<a class="btn btn-success btn-round" routerLink="/messages">
+                        Сообщения&nbsp;
+                        <span class="notification" *ngIf="countMessages">{{countMessages}}</span>
+                        &nbsp;<i class="material-icons">mail</i>
+                        <div class="ripple-container"></div>
+                    </a>-->
+                    <button class="btn btn-info btn-round" (click)="logout()">
+                        Выход <i class="material-icons">exit_to_app</i>
+                        <span class="ripple-container"></span>
+                    </button>
+                </div>
+                <!--Добро пожаловать,
+                <div class="btn-group">
+                    <a class="btn btn-success btn-round" routerLink="/profile/main/common">
+                        {{auth.data.first_name + " " + auth.data.last_name + " "}}
+                        <i class="material-icons">assignment_ind</i></a>
+                    <button class="btn btn-info btn-round"
+                            (click)="logout()">
+                        <i class="material-icons">exit_to_app</i>
+                    </button>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</header>
